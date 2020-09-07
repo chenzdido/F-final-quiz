@@ -19,12 +19,25 @@ class Studentlist extends React.Component {
       });
   }
 
+  handleSubmit = () => {
+    const keys = [];
+    Object.keys(this.state.students).forEach((v) => {
+      keys.push(v);
+    });
+    const { length } = keys;
+    for (let i = 1; i < length; ) {
+      const random = Math.floor(Math.random() * (i + 1));
+      [keys[i], keys[random]] = [keys[random], keys[i]];
+      i += 1;
+    }
+  };
+
   render() {
     return (
       <div>
         <div className="studentlist">
           <h2>学员列表</h2>
-          <button type="button" className="group">
+          <button type="button" className="group" onClick={this.handleSubmit}>
             分组学员
           </button>
         </div>
