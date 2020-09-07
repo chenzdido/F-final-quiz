@@ -6,6 +6,7 @@ class Studentlist extends React.Component {
     super(props);
     this.state = {
       students: {},
+      studentname: '',
     };
   }
 
@@ -32,6 +33,23 @@ class Studentlist extends React.Component {
     }
   };
 
+  handleValueChange = (event) => {
+    this.setState({
+      studentname: event.target.value,
+    });
+  };
+
+  handleAdd = () => {
+    const options = {
+      method: 'post',
+      body: JSON.stringify(this.state.studentname),
+      headers: {
+        'content-type': 'application/json',
+      },
+    };
+    fetch('http://localhost:8080/addStudent', options);
+  };
+
   render() {
     return (
       <div>
@@ -48,7 +66,12 @@ class Studentlist extends React.Component {
               {this.state.students[obj]}
             </span>
           ))}
-          <input type="text" value="+添加学员" />
+          <input
+            type="text"
+            placeholder="+添加学员"
+            onChange={this.handleValueChange}
+            onKeyDown={this.handleAdd}
+          />
         </div>
       </div>
     );
