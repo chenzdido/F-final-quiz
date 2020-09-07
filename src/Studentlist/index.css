@@ -1,0 +1,15 @@
+span {
+  background-color: #f7f7f7;
+  padding-right: 10px;
+}
+.studentlist {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.group {
+  color: white;
+  height: 30px;
+  background-color: #ea5455;
+  border: #ea5455;
+}

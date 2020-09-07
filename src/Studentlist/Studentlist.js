@@ -1,4 +1,5 @@
 import React from 'react';
+import './index.css';
 
 class Studentlist extends React.Component {
   constructor(props) {
@@ -21,12 +22,16 @@ class Studentlist extends React.Component {
   render() {
     return (
       <div>
-        <h2>学院列表</h2>
-        <button type="button">分组学员</button>
+        <div className="studentlist">
+          <h2>学员列表</h2>
+          <button type="button" className="group">
+            分组学员
+          </button>
+        </div>
         <div>
           {Object.keys(this.state.students).map((obj, idx) => (
-            <span key={idx}>
-              {obj}
+            <span key={idx} className="student">
+              {obj}. &nbsp;
               {this.state.students[obj]}
             </span>
           ))}
