@@ -48,6 +48,7 @@ class Studentlist extends React.Component {
               {this.state.students[obj]}
             </span>
           ))}
+          <input type="text" value="+添加学员" />
         </div>
       </div>
     );
