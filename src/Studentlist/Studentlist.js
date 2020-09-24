@@ -1,23 +1,27 @@
 import React from 'react';
-import './index.css';
+import axios from 'axios';
+import './index.scss';
+import 'antd/dist/antd.css';
+import { Tooltip } from 'antd';
 
 class Studentlist extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      students: {},
+      trainees: {},
       studentname: '',
     };
   }
 
   componentDidMount() {
-    fetch('http://localhost:8080/students')
-      .then((response) => response.json())
-      .then((data) => {
+    axios
+      .get('http://localhost:8080/trainees?grouped=false')
+      .then((response) => response.data)
+      .then((data) =>
         this.setState({
-          students: data,
-        });
-      });
+          trainees: data,
+        })
+      );
   }
 
   handleSubmit = () => {
@@ -60,12 +64,18 @@ class Studentlist extends React.Component {
           </button>
         </div>
         <div>
-          {Object.keys(this.state.students).map((obj, idx) => (
-            <span key={idx} className="student">
-              {obj}. &nbsp;
-              {this.state.students[obj]}
-            </span>
-          ))}
+          <ul>
+            {Object.keys(this.state.trainees).map((obj) => (
+              <Tooltip
+                title={`name:${this.state.trainees[obj].name} email:${this.state.trainees[obj].email} office:${this.state.trainees[obj].name} zoomId:${this.state.trainees[obj].zoomId} github:${this.state.trainees[obj].github} id:${this.state.trainees[obj].id}`}
+              >
+                <li>
+                  {this.state.trainees[obj].id}
+                  {this.state.trainees[obj].name}
+                </li>
+              </Tooltip>
+            ))}
+          </ul>
           <input
             type="text"
             placeholder="+添加学员"
