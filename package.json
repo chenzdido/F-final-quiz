@@ -14,6 +14,7 @@
   "dependencies": {
     "antd": "^4.6.5",
     "axios": "^0.20.0",
+    "cre": "^0.1.5",
     "node-sass": "^4.14.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
@@ -40,7 +41,8 @@
     "jest-css-modules-transform": "^4.0.0",
     "lint-staged": "^10.3.0",
     "parcel-bundler": "^1.12.4",
-    "prettier": "^2.1.1"
+    "prettier": "^2.1.1",
+    "react-router-dom": "^5.2.0"
   },
   "husky": {
     "hooks": {

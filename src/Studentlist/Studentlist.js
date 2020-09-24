@@ -3,6 +3,7 @@ import axios from 'axios';
 import './index.scss';
 import 'antd/dist/antd.css';
 import { Tooltip, Modal } from 'antd';
+import { Link } from 'react-router-dom';
 
 class Studentlist extends React.Component {
   constructor(props) {
@@ -74,7 +75,9 @@ class Studentlist extends React.Component {
                 </li>
               </Tooltip>
             ))}
-            <button type="button">+添加学员</button>
+            <Link to="/addTrainee">
+              <button type="button">+添加学员</button>
+            </Link>
           </ul>
           <Modal
             title="删除学员"
