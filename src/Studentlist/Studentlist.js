@@ -2,14 +2,15 @@ import React from 'react';
 import axios from 'axios';
 import './index.scss';
 import 'antd/dist/antd.css';
-import { Tooltip } from 'antd';
+import { Tooltip, Modal } from 'antd';
 
 class Studentlist extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       trainees: {},
-      studentname: '',
+      visible: false,
+      traineeId: 0,
     };
   }
 
@@ -24,34 +25,25 @@ class Studentlist extends React.Component {
       );
   }
 
-  handleSubmit = () => {
-    const keys = [];
-    Object.keys(this.state.students).forEach((v) => {
-      keys.push(v);
-    });
-    const { length } = keys;
-    for (let i = 1; i < length; ) {
-      const random = Math.floor(Math.random() * (i + 1));
-      [keys[i], keys[random]] = [keys[random], keys[i]];
-      i += 1;
-    }
-  };
-
-  handleValueChange = (event) => {
+  showModal = (event) => {
     this.setState({
-      studentname: event.target.value,
+      visible: true,
+      traineeId: event.target.id,
     });
   };
 
-  handleAdd = () => {
-    const options = {
-      method: 'post',
-      body: JSON.stringify(this.state.studentname),
-      headers: {
-        'content-type': 'application/json',
-      },
-    };
-    fetch('http://localhost:8080/addStudent', options);
+  handleCancel = () => {
+    this.setState({
+      visible: false,
+    });
+  };
+
+  handleOk = () => {
+    axios.delete(`http://localhost:8080/trainees/${this.state.traineeId}`);
+    this.setState({
+      visible: false,
+    });
+    window.location.replace('http://localhost:1234');
   };
 
   render() {
@@ -69,19 +61,29 @@ class Studentlist extends React.Component {
               <Tooltip
                 title={`name:${this.state.trainees[obj].name} email:${this.state.trainees[obj].email} office:${this.state.trainees[obj].name} zoomId:${this.state.trainees[obj].zoomId} github:${this.state.trainees[obj].github} id:${this.state.trainees[obj].id}`}
               >
-                <li>
-                  {this.state.trainees[obj].id}
-                  {this.state.trainees[obj].name}
+                <li key={this.state.trainees[obj].id}>
+                  <button
+                    id={this.state.trainees[obj].id}
+                    className="trainee"
+                    type="button"
+                    onClick={this.showModal}
+                  >
+                    {this.state.trainees[obj].id}
+                    {this.state.trainees[obj].name}
+                  </button>
                 </li>
               </Tooltip>
             ))}
+            <button type="button">+添加学员</button>
           </ul>
-          <input
-            type="text"
-            placeholder="+添加学员"
-            onChange={this.handleValueChange}
-            onKeyDown={this.handleAdd}
-          />
+          <Modal
+            title="删除学员"
+            visible={this.state.visible}
+            onOk={this.handleOk}
+            onCancel={this.handleCancel}
+          >
+            <p>是否删除？</p>
+          </Modal>
         </div>
       </div>
     );
