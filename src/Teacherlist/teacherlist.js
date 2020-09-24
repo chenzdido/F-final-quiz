@@ -18,9 +18,31 @@ class Teacherlist extends React.Component {
       .then((data) =>
         this.setState({
           trainers: data,
+          trainerId: 0,
         })
       );
   }
+
+  showModal = (event) => {
+    this.setState({
+      visible: true,
+      trainerId: event.target.id,
+    });
+  };
+
+  handleCancel = () => {
+    this.setState({
+      visible: false,
+    });
+  };
+
+  handleOk = () => {
+    axios.delete(`http://localhost:8080/trainers/${this.state.trainerId}`);
+    this.setState({
+      visible: false,
+    });
+    window.location.replace('http://localhost:1234');
+  };
 
   render() {
     return (
@@ -41,7 +63,6 @@ class Teacherlist extends React.Component {
                     type="button"
                     onClick={this.showModal}
                   >
-                    id
                     {this.state.trainers[obj].id}
                     {this.state.trainers[obj].name}
                   </button>
