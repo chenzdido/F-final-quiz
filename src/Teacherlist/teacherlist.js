@@ -52,7 +52,9 @@ class Teacherlist extends React.Component {
         </div>
         <div>
           <ul>
+            {/* TODO trainers 直接map就可以 */}
             {Object.keys(this.state.trainers).map((obj) => (
+              // TODO 没有设置key
               <Tooltip
                 title={`name:${this.state.trainers[obj].name} id:${this.state.trainers[obj].id}`}
               >

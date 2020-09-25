@@ -2,9 +2,12 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Form, Input, Button } from 'antd';
 
+// TODO 该文件不应该属于 Studentlist里
+// TODO 文件名首字母大写
 class CreteStudent extends Component {
   constructor(props) {
     super(props);
+    // 没有必要设置内部state，使用Form组件的提交方法就可以在提交时得到value，现在这种方式校验也不会生效
     this.state = {
       name: '',
       office: '',
@@ -14,7 +17,9 @@ class CreteStudent extends Component {
     };
   }
 
+  // TODO 方法名首字母小写，小驼峰形式
   Cancel = () => {
+    // TODO 使用 this.props.history.push 方式改变路由
     window.location.replace('http://localhost:1234');
   };
 
@@ -29,6 +34,7 @@ class CreteStudent extends Component {
     window.location.replace('http://localhost:1234');
   };
 
+  // TODO 下面方法都是没必要的代码
   handleChangeName = (event) => {
     this.setState({
       name: event.target.value,
@@ -61,6 +67,7 @@ class CreteStudent extends Component {
 
   render() {
     return (
+      // TODO 没有看到onFinish方法的定义
       <Form onFinish={this.onFinish} name="basicForm">
         <h1>添加学员</h1>
         <Form.Item name="name" label="姓名" rules={[{ required: true }]}>

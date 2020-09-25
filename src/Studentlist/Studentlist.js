@@ -49,6 +49,7 @@ class Studentlist extends React.Component {
 
   render() {
     return (
+      // TODO 可以对内部一些内容抽象成复用组件，例如 PersonnelItem，AddButton 等
       <div>
         <div className="studentlist">
           <h2>学员列表</h2>
@@ -58,7 +59,9 @@ class Studentlist extends React.Component {
         </div>
         <div>
           <ul>
+            {/* TODO trainees 直接map就可以了 */}
             {Object.keys(this.state.trainees).map((obj) => (
+              // Tooltip 没有设置key
               <Tooltip
                 title={`name:${this.state.trainees[obj].name} email:${this.state.trainees[obj].email} office:${this.state.trainees[obj].name} zoomId:${this.state.trainees[obj].zoomId} github:${this.state.trainees[obj].github} id:${this.state.trainees[obj].id}`}
               >
